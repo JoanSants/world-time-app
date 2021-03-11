@@ -7,6 +7,7 @@ class WorldTime {
   String location;
   String flag;
   String url;
+  bool isDayTime;
   
   WorldTime({ this.dateTime, this.location, this.flag, this.url });
 
@@ -21,6 +22,7 @@ class WorldTime {
       now = offset > 0 ? now.add(Duration(hours: offset)) : now.subtract(Duration(hours: offset.abs()));
 
       dateTime = DateFormat.jm().format(now);
+      isDayTime = now.hour > 6 && now.hour < 18;
     } catch (e) {
       dateTime = 'Could not fetch the time';
     }
