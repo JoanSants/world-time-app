@@ -3,11 +3,11 @@ import 'package:intl/intl.dart';
 import 'dart:convert';
 
 class WorldTime {
-  String dateTime;
-  String location;
-  String flag;
-  String url;
-  bool isDayTime;
+  String dateTime = '';
+  String location = '';
+  String flag = '';
+  String url = '';
+  bool isDayTime = true;
   
   WorldTime({ this.dateTime, this.location, this.flag, this.url });
 

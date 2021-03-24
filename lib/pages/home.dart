@@ -6,12 +6,12 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  Map<String, dynamic> urlData;
+  Map urlData = {};
 
   @override
   Widget build(BuildContext context) {
-    urlData = ModalRoute.of(context).settings.arguments;
-    String bgImage = '${urlData['isDayTime'] ? 'day' : 'night'}.png';
+    urlData = urlData.isNotEmpty ? urlData : ModalRoute.of(context).settings.arguments;
+    String bgImage = urlData['isDayTime'] ? 'day.png' : 'night.png';
     Color bgColor = urlData['isDayTime'] ? Colors.blue : Colors.indigo[700];
 
     return Scaffold(
@@ -29,8 +29,16 @@ class _HomeState extends State<Home> {
               child: Column(
                   children: <Widget>[
                     TextButton.icon(
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/location');
+                        onPressed: () async {
+                          dynamic result = await Navigator.pushNamed(context, '/location');
+                          setState(() {
+                            urlData = {
+                              'location': result['location'],
+                              'flag': result['flag'],
+                              'dateTime': result['dateTime'],
+                              'isDayTime': result['isDayTime']
+                            };
+                          });
                         },
                         icon: Icon(
                             Icons.edit_location,
